@@ -17,6 +17,7 @@ const BookForm = () => {
         title,
         author,
         id: v4(),
+        isFavorite: false,
       };
       console.log(book);
       dispatch(addBook(book));
@@ -32,6 +33,7 @@ const BookForm = () => {
     const randomBookWithId = {
       ...randomBook,
       id: v4(),
+      isFavorite: false,
     };
     dispatch(addBook(randomBookWithId));
   };
