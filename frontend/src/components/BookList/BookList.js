@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteBook, toggleFavorite } from "../../redux/books/actionCreators";
+import { deleteBook, toggleFavorite } from "../../redux/slices/bookSlice";
 import { BsBookmarkStarFill, BsBookmarkStar } from "react-icons/bs";
 import "./BookList.css";
 import {
