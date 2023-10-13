@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = [];
 
 const bookSlice = createSlice({
-  name: "book",
+  name: "books",
   initialState,
   reducers: {
     addBook: (state, action) => {
@@ -22,5 +22,7 @@ const bookSlice = createSlice({
 });
 
 export const { addBook, deleteBook, toggleFavorite } = bookSlice.actions;
+
+export const selectAddBook = (state) => state.books;
 
 export default bookSlice.reducer;
