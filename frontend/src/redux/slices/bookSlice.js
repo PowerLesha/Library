@@ -37,47 +37,58 @@ const bookSlice = createSlice({
         books: state.books.filter((b) => b.id !== action.payload),
       };
     },
-    toggleFavorite: (state, action) =>
-      state.books.map((book) =>
+
+    toggleFavorite: (state, action) => {
+      state.books = state.books.map((book) =>
         book.id === action.payload
           ? { ...book, isFavorite: !book.isFavorite }
           : book
-      ),
-  },
-  // Option 2
-  // extraReducers: (builder) => {
-  //   builder.addCase(fetchBook.pending, (state) => {
-  //     state.isLoadingViaApi = true;
-  //   });
-  // },
-  // extraReducers: (builder) => {
-  //   builder.addCase(fetchBook.rejected, (state) => {
-  //     state.isLoadingViaApi = false;
-  //   });
-  // },
-  // extraReducers: (builder) => {
-  //   builder.addCase(fetchBook.fulfilled, (state, action) => {
-  //     state.isLoadingViaApi = false;
-  //     if (action.payload.title && action.payload.author) {
-  //       state.books.push(createBookWithId(action.payload, "API"));
-  //     }
-  //   });
-  // },
-  extraReducers: {
-    [fetchBook.pending]: (state, action) => {
-      state.isLoadingViaApi = true;
-    },
-    [fetchBook.rejected]: (state, action) => {
-      state.isLoadingViaApi = false;
+      );
     },
 
-    [fetchBook.fulfilled]: (state, action) => {
+    // toggleFavorite: (state, action) => {
+    //   state.books.forEach((book, index) => {
+    //     if (book.id === action.payload) {
+    //       state.books[index] = { ...book, isFavorite: !book.isFavorite };
+    //     }
+    //   });
+    // },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchBook.pending, (state) => {
+      state.isLoadingViaApi = true;
+    });
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchBook.rejected, (state) => {
+      state.isLoadingViaApi = false;
+    });
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchBook.fulfilled, (state, action) => {
       state.isLoadingViaApi = false;
       if (action.payload.title && action.payload.author) {
         state.books.push(createBookWithId(action.payload, "API"));
       }
-    },
+    });
   },
+  // Option 2
+  //   extraReducers: {
+  //     [fetchBook.pending]: (state, action) => {
+  //       state.isLoadingViaApi = true;
+  //     },
+  //     [fetchBook.rejected]: (state, action) => {
+  //       state.isLoadingViaApi = false;
+  //     },
+
+  //     [fetchBook.fulfilled]: (state, action) => {
+  //       state.isLoadingViaApi = false;
+  //       if (action.payload.title && action.payload.author) {
+  //         state.books.push(createBookWithId(action.payload, "API"));
+  //       }
+  //     },
+  //   },
 });
 
 export const { addBook, deleteBook, toggleFavorite } = bookSlice.actions;
